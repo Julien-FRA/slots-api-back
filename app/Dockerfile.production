@@ -1,13 +1,15 @@
 FROM golang:alpine
 
-RUN mkdir -p /var/www
+RUN apk update && apk add --no-cache postgresql-client
 
-WORKDIR /var/www
+RUN mkdir -p /app
 
-COPY .. /var/www
+WORKDIR /app
+
+COPY ..
 # change GOARCH for your os, yours will probably be amd64
 # there's a bug with qemu on the M1 chip, so I need arm
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o app
 
 EXPOSE 3200
-ENTRYPOINT ["/var/www/app"]
+ENTRYPOINT ["/app"]
