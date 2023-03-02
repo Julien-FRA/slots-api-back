@@ -5,7 +5,7 @@ import (
 	"fmt"
 	// "os"
 
-	// "github.com/joho/godotenv"
+	"github.com/joho/godotenv"
 
 	_ "github.com/lib/pq"
 )
@@ -24,12 +24,11 @@ type connection struct {
 }
 
 func Init() {
-	// err := godotenv.Load("config/.env")
+	err := godotenv.Load("config/.env")
 
-	// if err != nil {
-	// 	fmt.Printf("Error loading .env file: %s\n", err.Error())
-	// 	return
-	// }
+	if err != nil {
+		fmt.Printf("Error loading .env file: %s\n", err.Error())
+	}
 
 	connInfo := connection{
 		// Host:     os.Getenv("POSTGRES_URL"),
@@ -45,7 +44,7 @@ func Init() {
 	}
 
 	// try to open our postgresql connection with our connection info
-	db, err := sql.Open("postgres", connToString(connInfo))
+	db, err = sql.Open("postgres", connToString(connInfo))
 	if err != nil {
 		fmt.Printf("Error connecting to the DB: %s\n", err.Error())
 		return
@@ -57,7 +56,7 @@ func Init() {
 	err = db.Ping()
 	if err != nil {
 		fmt.Printf("Error could not ping database: %s\n", err.Error())
-		panic(err)
+		return
 	} else {
 		fmt.Printf("DB pinged successfully\n")
 	}
