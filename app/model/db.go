@@ -57,7 +57,7 @@ func Init() {
 	err = db.Ping()
 	if err != nil {
 		fmt.Printf("Error could not ping database: %s\n", err.Error())
-		return
+		panic(err)
 	} else {
 		fmt.Printf("DB pinged successfully\n")
 	}

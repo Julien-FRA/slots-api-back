@@ -17,7 +17,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 3200:3200
+      - "3200:3200"
     networks:
       - backend
 

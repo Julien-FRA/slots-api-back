@@ -5,10 +5,10 @@ ENV GO111MODULE=on
 
 # Je vais faire une build en 2 étapes
 # https://dave.cheney.net/2016/01/18/cgo-is-not-go
-# ENV CGO_ENABLED=0
-# ENV GOOS=$GOOS
-# ENV GOARCH=$GOARCH
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+ENV CGO_ENABLED=0
+ENV GOOS=linux
+ENV GOARCH=amd64
+# RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 
 WORKDIR /app
 COPY ./app .
@@ -18,8 +18,6 @@ RUN go mod download \
 
 FROM scratch as FINAL
 
-WORKDIR /main
 COPY --from=BUILDER /build/buildedApp .
 
-EXPOSE 3200
 ENTRYPOINT ["./buildedApp"]
