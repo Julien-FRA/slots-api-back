@@ -20,4 +20,5 @@ FROM scratch as FINAL
 WORKDIR /main
 COPY --from=BUILDER /build/buildedApp .
 
+EXPOSE 3200
 ENTRYPOINT ["./buildedApp"]
