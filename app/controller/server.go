@@ -90,5 +90,5 @@ func Start() {
 
 	initHandlers()
 	fmt.Printf("router initialized and listening on 3200\n")
-	log.Fatal(http.ListenAndServe("212.47.242.30:3200", handler))
+	log.Fatal(http.ListenAndServe(":3200", handler))
 }

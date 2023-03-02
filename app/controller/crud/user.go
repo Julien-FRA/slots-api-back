@@ -17,9 +17,9 @@ import (
 const SecretKey = "libererlacrim"
 
 func GetAllUsers(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Add("Access-Control-Allow-Methods", "*")
+	// w.Header().Set("Access-Control-Allow-Origin", "*")
+	// w.Header().Set("Content-Type", "application/json")
+	// w.Header().Add("Access-Control-Allow-Methods", "*")
 
 	user, err := model.GetAllUsers()
 	if err != nil {
