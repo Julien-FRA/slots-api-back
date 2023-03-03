@@ -69,26 +69,36 @@ func CreateAppointmentController(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
-	type Appointments struct {
-		AppointmentJSON []model.Appointment `json:"appointmentJSON"`
+	var appointment model.Appointment
+
+	var reqBody struct {
+		AppointmentJSON string `json:"appointmentJSON"`
 	}
 
-	var reqBody Appointments
 	err := json.NewDecoder(r.Body).Decode(&reqBody)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
-	// Iterate over each appointment in the array
-	for _, appointment := range reqBody.AppointmentJSON {
-		// Do something with each appointment, like store it in a database
-		model.CreateAppointment(appointment)
-		fmt.Printf("Received appointment: %+v\n", appointment)
+	fmt.Printf("Received employee reqBody: %+v\n", reqBody)
+	err = json.Unmarshal([]byte(reqBody.AppointmentJSON), &appointment)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
-
-	// Return a success message to the client
-	fmt.Fprintln(w, "Appointments created successfully")
+	fmt.Printf("Received employee data: %+v\n", appointment)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	err = model.CreateAppointment(appointment)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	} else {
+		w.WriteHeader(http.StatusOK)
+	}
 }
 
 func UpdateAppointmentController(w http.ResponseWriter, r *http.Request) {
