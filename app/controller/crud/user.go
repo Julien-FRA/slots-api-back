@@ -114,8 +114,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 			Name:     "jwt",
 			Value:    token,
 			Expires:  time.Now().Add(time.Hour * 24),
-			HttpOnly: false,
-			Secure: true,
+			HttpOnly: true,
 		}
 
 		http.SetCookie(w, &cookie)
@@ -131,8 +130,7 @@ func LogoutUser(w http.ResponseWriter, r *http.Request) {
 		Name:     "jwt",
 		Value:    "",
 		Expires:  time.Now().Add(-time.Hour),
-		HttpOnly: false,
-		Secure: true,
+		HttpOnly: true,
 	}
 
 	http.SetCookie(w, &cookie)
