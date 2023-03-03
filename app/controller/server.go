@@ -70,7 +70,7 @@ func Start() {
 	router = mux.NewRouter()
 
 	corsOpts := cors.New(cors.Options{
-		AllowedOrigins: []string{"https://slots-api-front-ggqvdm8dr-alexandre-parent.vercel.app/"}, //for this base url
+		AllowedOrigins: []string{"https://slots-api-front.vercel.app/"}, //for this base url
 		AllowedMethods: []string{
 			http.MethodGet, //http methods
 			http.MethodPost,
