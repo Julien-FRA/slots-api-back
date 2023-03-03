@@ -109,6 +109,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if token != "" {
+
 		cookie := http.Cookie{
 			Name:     "jwt",
 			Value:    token,
