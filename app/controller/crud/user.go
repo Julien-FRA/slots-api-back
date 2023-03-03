@@ -114,6 +114,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 			Value:    token,
 			Expires:  time.Now().Add(time.Hour * 24),
 			HttpOnly: false,
+			Secure: true,
 		}
 
 		http.SetCookie(w, &cookie)
@@ -130,6 +131,7 @@ func LogoutUser(w http.ResponseWriter, r *http.Request) {
 		Value:    "",
 		Expires:  time.Now().Add(-time.Hour),
 		HttpOnly: false,
+		Secure: true,
 	}
 
 	http.SetCookie(w, &cookie)
